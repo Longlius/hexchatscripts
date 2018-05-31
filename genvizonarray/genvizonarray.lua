@@ -47,5 +47,3 @@ end
 
 -- register the command
 hexchat.hook_command("genvizonarray", genvizonarray)
-
-
