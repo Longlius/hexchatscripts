@@ -1,14 +1,16 @@
+-- metadata for hexchat
 hexchat.register("genvizonarray.lua", "0.1", "Generates array of numbers for VIzon lottery on Rizon")
+
 -- seed the random number generator
 math.randomseed(os.time())
 
 -- final output function
-function printarray(x)
+function outputarray(x)
 	local muhoutput = ""
 	for i = 1, #x do
 		muhoutput = muhoutput .. " " .. x[i]
 	end
-	print("VIzon bet" .. muhoutput)
+	hexchat.command("msg VIzon bet" .. muhoutput)
 end
 
 -- function to populate the array with random numbers
@@ -16,7 +18,6 @@ function populatearray(x)
 	for i = 1, 6 do
 		x[i] = math.random(1, 29)
 	end
-	return x
 end
 
 -- main function
@@ -30,7 +31,7 @@ function genvizonarray()
 		-- turn off looping
 		continuelooping = false
 		-- populate the table
-		muhtable = populatearray(muhtable)
+		populatearray(muhtable)
 		-- sort it for uniqueness checking
 		table.sort(muhtable)
 		-- loop through the array checking for repeating elements
@@ -41,7 +42,10 @@ function genvizonarray()
 		end
 	end
 	-- finally print the array
-	printarray(muhtable)
+	outputarray(muhtable)
 end
 
-genvizonarray()
+-- register the command
+hexchat.hook_command("genvizonarray", genvizonarray)
+
+
